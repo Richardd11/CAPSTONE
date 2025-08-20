@@ -489,3 +489,39 @@ function submitFacultyForm() {
     } else { form.reportValidity(); }
 }
 </script>
+
+<script>
+// Year-Section tab switching for Students section
+document.addEventListener('DOMContentLoaded', function() {
+    const yearSectionTabs = document.querySelectorAll('.year-section-tab');
+    const studentSections = document.querySelectorAll('.student-section');
+
+    yearSectionTabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+            const targetSection = this.getAttribute('data-section');
+
+            // Update active style on tabs
+            yearSectionTabs.forEach(t => {
+                t.classList.remove('active', 'bg-primary-600', 'text-white', 'border-primary-600');
+                t.classList.add('bg-grey-100', 'text-grey-600', 'border-grey-300');
+            });
+            this.classList.add('active', 'bg-primary-600', 'text-white', 'border-primary-600');
+            this.classList.remove('bg-grey-100', 'text-grey-600', 'border-grey-300');
+
+            // Show selected section; hide others
+            studentSections.forEach(section => {
+                if (section.id === targetSection) {
+                    section.classList.remove('hidden');
+                } else {
+                    section.classList.add('hidden');
+                }
+            });
+        });
+    });
+
+    // Default to first tab if present
+    if (yearSectionTabs.length > 0) {
+        yearSectionTabs[0].click();
+    }
+});
+</script>
