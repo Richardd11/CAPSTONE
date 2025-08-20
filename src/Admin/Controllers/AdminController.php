@@ -202,7 +202,7 @@ class AdminController
         ];
         if (empty($data['school_id']) || empty($data['full_name'])) { $this->showError('School ID and Full Name are required'); return; }
         try {
-            $result = $this->userService->updateUser($data);
+            $result = $this->userService->updateUser($userId, $data);
             if ($result['success']) { $this->showSuccess('Faculty member updated successfully'); }
             else { $this->showError($result['message']); }
         } catch (\Exception $e) {
