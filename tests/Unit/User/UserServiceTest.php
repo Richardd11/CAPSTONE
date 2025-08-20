@@ -3,8 +3,8 @@
 namespace Tests\Unit\User;
 
 use PHPUnit\Framework\TestCase;
-use App\Services\User\UserService;
-use App\Interfaces\UserDAOInterface;
+use App\Shared\Services\UserService;
+use App\Shared\Repositories\UserRepositoryInterface as UserDAOInterface;
 
 class FakeUserDAO implements UserDAOInterface
 {

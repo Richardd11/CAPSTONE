@@ -2,11 +2,11 @@
 
 session_start();
 
-require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\Router;
-use App\Controllers\Auth\AuthController;
-use App\Controllers\Admin\AdminController;
+use App\Auth\Controllers\AuthController;
+use App\Admin\Controllers\AdminController;
 
 // Initialize router
 $router = new Router();

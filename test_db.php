@@ -2,7 +2,6 @@
 require_once __DIR__ . '/vendor/autoload.php';
 
 use App\Config\Database;
-use App\Models\User;
 
 echo "<h1>Database Connection Test</h1>";
 

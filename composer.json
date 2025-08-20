@@ -1,7 +1,15 @@
 {
     "autoload": {
         "psr-4": {
-            "App\\": "src/App/"
+            "App\\": "src/",
+            "App\\Core\\": "src/Core/",
+            "App\\Auth\\": "src/Auth/",
+            "App\\Admin\\": "src/Admin/",
+            "App\\Exam\\": "src/Exam/",
+            "App\\Student\\": "src/Student/",
+            "App\\Faculty\\": "src/Faculty/",
+            "App\\Shared\\": "src/Shared/",
+            "App\\Config\\": "config/"
         }
     },
     "require-dev": {

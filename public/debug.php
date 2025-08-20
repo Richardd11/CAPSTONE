@@ -2,10 +2,10 @@
 
 session_start();
 
-require_once '../vendor/autoload.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 use App\Core\Router;
-use App\Controllers\Auth\AuthController;
+use App\Auth\Controllers\AuthController;
 
 echo "<h1>Debug Information</h1>";
 

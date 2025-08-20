@@ -3,7 +3,7 @@
 namespace Tests\Unit\DAO;
 
 use PHPUnit\Framework\TestCase;
-use App\DAO\Auth\UserDAO;
+use App\Shared\Repositories\UserRepository as UserDAO;
 use PDO;
 use PDOStatement;
 
