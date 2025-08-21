@@ -109,5 +109,5 @@ $router->post('/admin/users/delete/{id}', function($id) use ($adminController) {
 });
 
 // Handle the request
-$router->handleRequest();
+$router->dispatch();
 ?>
