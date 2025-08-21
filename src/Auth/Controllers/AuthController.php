@@ -97,7 +97,7 @@ class AuthController
                 header('Location: ' . $basePath . '/admin/dashboard');
                 break;
             case 'faculty':
-                header('Location: ' . $basePath . '/faculty-success');
+                header('Location: ' . $basePath . '/faculty/dashboard');
                 break;
             case 'student':
                 header('Location: ' . $basePath . '/student-success');

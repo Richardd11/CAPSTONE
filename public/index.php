@@ -7,6 +7,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 use App\Core\Router;
 use App\Auth\Controllers\AuthController;
 use App\Admin\Controllers\AdminController;
+use App\Faculty\Controllers\FacultyController;
 
 // Initialize router
 $router = new Router();
@@ -14,6 +15,7 @@ $router = new Router();
 // Create controllers
 $authController = new AuthController();
 $adminController = new AdminController();
+$facultyController = new FacultyController();
 
 // Debug information (remove this later)
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
@@ -49,9 +51,8 @@ $router->get('/admin-success', function() {
 
 $router->get('/faculty-success', function() {
     $basePath = dirname($_SERVER['SCRIPT_NAME']);
-    echo '<h1>Faculty Login Successful!</h1>';
-    echo '<p>Welcome Faculty! You have successfully logged in.</p>';
-    echo '<p><a href="' . $basePath . '/login">Back to Login</a></p>';
+    header('Location: ' . $basePath . '/faculty/dashboard');
+    exit;
 });
 
 $router->get('/student-success', function() {
@@ -68,6 +69,11 @@ $router->get('/admin/dashboard', function() use ($adminController) {
 
 $router->get('/admin/logout', function() use ($adminController) {
     $adminController->logout();
+});
+
+// Faculty Dashboard Route
+$router->get('/faculty/dashboard', function() use ($facultyController) {
+    $facultyController->dashboard();
 });
 
 // Admin User Management Routes
