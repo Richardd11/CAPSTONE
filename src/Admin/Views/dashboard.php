@@ -41,6 +41,7 @@
             }
         }
     </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body class="bg-grey-50">
     <div class="bg-gradient-to-r from-primary-600 to-primary-800 text-white py-6 mb-8">
@@ -91,6 +92,82 @@
             </div>
             <?php unset($_SESSION['error_message']); ?>
         <?php endif; ?>
+
+        <?php 
+            $totalStudents = isset($students) ? count($students) : 0; 
+            $totalFaculty = isset($faculty) ? count($faculty) : 0; 
+            $totalSections = isset($yearSections) ? count($yearSections) : 0; 
+        ?>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="bg-white rounded-lg shadow p-6 border border-grey-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-grey-500 mb-1">Total Students</p>
+                        <p class="text-3xl font-bold text-primary-600"><?= $totalStudents ?></p>
+                    </div>
+                    <div class="bg-primary-50 text-primary-600 w-12 h-12 rounded-full flex items-center justify-center">
+                        <i class="fas fa-user-graduate"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6 border border-grey-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-grey-500 mb-1">Total Faculty</p>
+                        <p class="text-3xl font-bold text-primary-600"><?= $totalFaculty ?></p>
+                    </div>
+                    <div class="bg-primary-50 text-primary-600 w-12 h-12 rounded-full flex items-center justify-center">
+                        <i class="fas fa-chalkboard-teacher"></i>
+                    </div>
+                </div>
+            </div>
+            <div class="bg-white rounded-lg shadow p-6 border border-grey-200">
+                <div class="flex items-center justify-between">
+                    <div>
+                        <p class="text-sm text-grey-500 mb-1">Year Sections</p>
+                        <p class="text-3xl font-bold text-primary-600"><?= $totalSections ?></p>
+                    </div>
+                    <div class="bg-primary-50 text-primary-600 w-12 h-12 rounded-full flex items-center justify-center">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="lg:col-span-1 bg-white rounded-lg shadow p-6 border border-grey-200">
+                <h3 class="text-lg font-semibold text-grey-800 mb-4">
+                    <i class="fas fa-bolt mr-2 text-primary-600"></i>
+                    Quick Actions
+                </h3>
+                <div class="space-y-3">
+                    <button onclick="showAddStudentModal()" class="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-grey-200 hover:border-primary-300 hover:bg-primary-50 transition">
+                        <span class="text-grey-700"><i class="fas fa-user-plus mr-2 text-primary-600"></i>Add Student</span>
+                        <i class="fas fa-angle-right text-grey-400"></i>
+                    </button>
+                    <button onclick="showAddFacultyModal()" class="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-grey-200 hover:border-primary-300 hover:bg-primary-50 transition">
+                        <span class="text-grey-700"><i class="fas fa-user-tie mr-2 text-primary-600"></i>Add Faculty</span>
+                        <i class="fas fa-angle-right text-grey-400"></i>
+                    </button>
+                    <a href="#reports" onclick="showTab('reports')" class="block w-full">
+                        <div class="w-full flex items-center justify-between px-4 py-3 rounded-lg border border-grey-200 hover:border-primary-300 hover:bg-primary-50 transition">
+                            <span class="text-grey-700"><i class="fas fa-chart-line mr-2 text-primary-600"></i>View Reports</span>
+                            <i class="fas fa-angle-right text-grey-400"></i>
+                        </div>
+                    </a>
+                </div>
+            </div>
+            <div class="lg:col-span-2 bg-white rounded-lg shadow p-6 border border-grey-200">
+                <h3 class="text-lg font-semibold text-grey-800 mb-4">
+                    <i class="fas fa-chart-pie mr-2 text-primary-600"></i>
+                    Students by Year/Section
+                </h3>
+                <div class="relative" style="height: 280px;">
+                    <canvas id="studentsByYearChart"></canvas>
+                </div>
+            </div>
+        </div>
 
         <div class="border-b-2 border-grey-200 mb-0">
             <div class="flex space-x-1">
@@ -155,6 +232,34 @@
             activeTab.classList.add('bg-white', 'text-primary-600', 'border-primary-600');
         }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ctx = document.getElementById('studentsByYearChart');
+            if (!ctx) { return; }
+            const labels = <?= json_encode(array_keys($yearSections ?? [])) ?>;
+            const data = <?= json_encode(array_values($yearSections ?? [])) ?>;
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Students',
+                        data: data,
+                        backgroundColor: 'rgba(239, 68, 68, 0.25)',
+                        borderColor: 'rgba(239, 68, 68, 1)',
+                        borderWidth: 2,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { beginAtZero: true, ticks: { precision: 0 } }
+                    }
+                }
+            });
+        });
+    </script>
 </body>
 </html>
-
